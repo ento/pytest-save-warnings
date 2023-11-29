@@ -25,7 +25,7 @@ jobs:
         name: devenv
     - name: Run tests
       run: |
-        nix develop --impure .#{{ matrix.python }} -c "tox -e py{{ matrix.python }}"
+        nix develop --impure .#{{ matrix.python }} -c tox -e py{{ matrix.python }}
 
   pre-commit:
     runs-on: ubuntu-latest
@@ -41,4 +41,4 @@ jobs:
         key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
     - name: Run pre-commit
       run: |
-        nix develop --impure . -c "pre-commit run --all-files"
+        nix develop --impure . -c pre-commit run --all-files
