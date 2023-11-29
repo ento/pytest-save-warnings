@@ -1,0 +1,32 @@
+repos:
+- repo: https://github.com/psf/black
+  rev: 23.11.0
+  hooks:
+  - id: black
+- repo: https://github.com/asottile/reorder-python-imports
+  rev: v3.12.0
+  hooks:
+  - id: reorder-python-imports
+    args: [ "--application-directories=.:src" , --py3-plus]
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.15.0
+  hooks:
+  - id: pyupgrade
+    args: [--py38-plus]
+- repo: https://github.com/RobertCraigie/pyright-python
+  rev: v1.1.337
+  hooks:
+  - id: pyright
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.1.0
+  hooks:
+  - id: flake8
+- repo: https://github.com/tox-dev/pyproject-fmt
+  rev: "1.5.1"
+  hooks:
+  - id: pyproject-fmt
+- repo: https://github.com/jazzband/pip-tools
+  rev: "7.3.0"
+  hooks:
+  - id: pip-compile
+    files: ^pyproject\.toml|requirements\.txt$
