@@ -10,12 +10,13 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    matrix:
-      python:
-        - "38"
-        - "39"
-        - "310"
-        - "311"
+    strategy:
+      matrix:
+        python:
+          - "38"
+          - "39"
+          - "310"
+          - "311"
     steps:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v23
