@@ -39,6 +39,7 @@ jobs:
     - uses: cachix/cachix-action@v12
       with:
         name: devenv
+        extraPullNames: nixpkgs-python
     - name: Run tests
       run: |
         cat <<'EOF' >test.sh
@@ -62,6 +63,7 @@ jobs:
     - uses: cachix/cachix-action@v12
       with:
         name: devenv
+        extraPullNames: nixpkgs-python
     - uses: actions/cache@v3
       with:
         path: ~/.cache/pre-commit
