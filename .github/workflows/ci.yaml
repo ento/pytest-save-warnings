@@ -21,6 +21,17 @@ jobs:
           - "39"
           - "310"
           - "311"
+        include:
+          - python: "311"
+            pytest: "3.8"
+          - python: "311"
+            pytest: "4"
+          - python: "311"
+            pytest: "5"
+          - python: "311"
+            pytest: "6"
+          - python: "311"
+            pytest: "7"
     steps:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v23
@@ -29,7 +40,13 @@ jobs:
         name: devenv
     - name: Run tests
       run: |
-        nix develop --impure .#${{ matrix.python }} -c tox -e py${{ matrix.python }}
+        if [[ -n $PYTEST_VERSION ]]; then
+          nix develop --impure .#$PYTHON_VERSION -c pip install pytest==$PYTEST_VERSION
+        fi
+        nix develop --impure .#$PYTHON_VERSION -c tox -e py$PYTHON_VERSION
+      env:
+        PYTHON_VERSION: ${{ matrix.python }}
+        PYTEST_VERSION: ${{ matrix.pytest }}
 
   pre-commit:
     runs-on: ubuntu-latest
