@@ -10,8 +10,17 @@ if TYPE_CHECKING:
     from _pytest.terminal import WarningReport
     from _pytest.terminal import TerminalReporter
 
+    try:
+        from pytest import Config
+    except ImportError:
+        from _pytest.config import Config
+    try:
+        from pytest import Parser
+    except ImportError:
+        from _pytest.config.argparsing import Parser
 
-def pytest_addoption(parser: pytest.Parser):
+
+def pytest_addoption(parser: "Parser"):
     group = parser.getgroup("save warnings")
     group.addoption(
         "--save-warnings-output",
@@ -22,7 +31,7 @@ def pytest_addoption(parser: pytest.Parser):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_terminal_summary(
-    terminalreporter: "TerminalReporter", exitstatus: int, config: pytest.Config
+    terminalreporter: "TerminalReporter", exitstatus: int, config: "Config"
 ):
     # let the teardown phase run
     yield
@@ -42,7 +51,7 @@ def pytest_terminal_summary(
 
 
 def _get_relpath_and_lineno(
-    warning_report: "WarningReport", config: pytest.Config
+    warning_report: "WarningReport", config: "Config"
 ) -> Union[Tuple[str, int], Tuple[None, None]]:
     without_nodeid = copy.copy(warning_report)
     without_nodeid.nodeid = None
