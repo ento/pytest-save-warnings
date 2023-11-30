@@ -51,7 +51,7 @@ jobs:
         fi
         tox -e $testenv
         EOF
-        nix develop --impure .#$PYTHON_VERSION -c bash -e test.sh
+        nix develop --accept-flake-config --impure .#$PYTHON_VERSION -c bash -e test.sh
       env:
         PYTHON_VERSION: ${{ matrix.python }}
         PYTEST_VERSION: ${{ matrix.pytest }}
