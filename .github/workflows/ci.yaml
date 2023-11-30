@@ -21,6 +21,8 @@ jobs:
           - "39"
           - "310"
           - "311"
+        pytest:
+          - "*"
         include:
           - python: "311"
             pytest: "3.8"
@@ -40,7 +42,9 @@ jobs:
         name: devenv
     - name: Run tests
       run: |
-        if [[ -n $PYTEST_VERSION ]]; then
+        if [[ $PYTEST_VERSION == '*' ]]; then
+          nix develop --impure .#$PYTHON_VERSION -c pip install --upgrade pytest
+        else
           nix develop --impure .#$PYTHON_VERSION -c pip install pytest==$PYTEST_VERSION
         fi
         nix develop --impure .#$PYTHON_VERSION -c tox -e py$PYTHON_VERSION
