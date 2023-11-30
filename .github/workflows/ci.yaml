@@ -26,10 +26,6 @@ jobs:
           - "*"
         include:
           - python: "39"
-            pytest: "4"
-          - python: "38"
-            pytest: "5"
-          - python: "39"
             pytest: "6"
           - python: "312"
             pytest: "7"
