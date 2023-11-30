@@ -63,6 +63,7 @@ local_scheme = "no-local-version"
 pytester_example_dir = "tests/examples/"
 norecursedirs = [
   ".devenv",
+  ".direnv",
   ".eggs",
   ".tox",
   "examples",
