@@ -44,6 +44,7 @@
                 tox
                 twine
               ];
+              pythonWithPackages = python.withPackages pythonPackages;
               shell = {
                 name = v;
                 packages = [
@@ -51,7 +52,9 @@
                 ];
                 languages.python.enable = true;
                 languages.python.version = v;
-                languages.python.package = lib.mkForce (python.withPackages pythonPackages);
+                # Don't use pythonWithPackages until .withPackages is fixed in nixpkgs-python
+                # and track dev dependencies in pyproject.toml
+                languages.python.package = lib.mkForce python;
                 languages.python.venv.enable = true;
                 languages.python.venv.requirements = ./requirements.txt;
               };

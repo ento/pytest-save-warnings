@@ -32,6 +32,13 @@ classifiers = [
 dependencies = [
   "pytest>=3.8",
 ]
+[project.optional-dependencies]
+dev = [
+  "build<2,>=1.0.3",
+  "pip-tools<8,>=7.3",
+  "tox<5,>=4.11.4",
+  "twine<5,>=4.0.2",
+]
 [project.urls]
 Repository = "https://github.com/ento/pytest-save-warnings"
 [project.entry-points.pytest11]
