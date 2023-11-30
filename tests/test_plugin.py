@@ -1,10 +1,15 @@
 import json
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import pytest
+if TYPE_CHECKING:
+    try:
+        from pytest import Pytester
+    except ImportError:
+        from _pytest.pytester import Pytester
 
 
-def test_output_format(pytester: pytest.Pytester, tmp_path: Path):
+def test_output_format(pytester: "Pytester", tmp_path: Path):
     pytester.copy_example("test_output_format.py")
     output_path = tmp_path / "warnings.txt"
 
@@ -20,7 +25,7 @@ def test_output_format(pytester: pytest.Pytester, tmp_path: Path):
     assert "UserWarning: Warning from test body" in warning["message"]
 
 
-def test_warning_during_import_gets_captured(pytester: pytest.Pytester, tmp_path: Path):
+def test_warning_during_import_gets_captured(pytester: "Pytester", tmp_path: Path):
     pytester.copy_example("test_warning_during_import_gets_captured.py")
     output_path = tmp_path / "warnings.txt"
 
@@ -37,7 +42,7 @@ def test_warning_during_import_gets_captured(pytester: pytest.Pytester, tmp_path
 
 
 def test_warning_during_terminal_summary_gets_captured(
-    pytester: pytest.Pytester, tmp_path: Path
+    pytester: "Pytester", tmp_path: Path
 ):
     pytester.makeconftest(
         """
