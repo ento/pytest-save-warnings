@@ -42,12 +42,15 @@ jobs:
         name: devenv
     - name: Run tests
       run: |
+        cat <<EOF >test.sh
         if [[ $PYTEST_VERSION == '*' ]]; then
-          nix develop --impure .#$PYTHON_VERSION -c pip install --upgrade pytest
+          pip install --upgrade pytest
         else
-          nix develop --impure .#$PYTHON_VERSION -c pip install pytest==$PYTEST_VERSION
+          pip install pytest==$PYTEST_VERSION
         fi
-        nix develop --impure .#$PYTHON_VERSION -c tox -e py$PYTHON_VERSION
+        tox -e py$PYTHON_VERSION
+        EOF
+        nix develop --impure .#$PYTHON_VERSION -c bash -e test.sh
       env:
         PYTHON_VERSION: ${{ matrix.python }}
         PYTEST_VERSION: ${{ matrix.pytest }}
