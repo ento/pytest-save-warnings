@@ -26,7 +26,7 @@ jobs:
           - "*"
         include:
           - python: "312"
-            pytest: "3.8"
+            pytest: "3"
           - python: "312"
             pytest: "4"
           - python: "312"
