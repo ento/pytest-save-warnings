@@ -9,3 +9,4 @@ devenv.local.nix
 # building and testing
 .tox
 dist
+src/pytest_save_warnings/_version.py

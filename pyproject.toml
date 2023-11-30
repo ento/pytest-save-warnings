@@ -1,12 +1,12 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
+  "hatch-vcs",
   "hatchling",
 ]
 
 [project]
 name = "pytest-save-warnings"
-version = "0.0.1"
 description = "Save warnings captured by pytest to a file."
 readme = "README.md"
 keywords = [
@@ -29,6 +29,9 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
 ]
+dynamic = [
+  "version",
+]
 dependencies = [
   "pytest>=3.8",
 ]
@@ -44,9 +47,15 @@ Repository = "https://github.com/ento/pytest-save-warnings"
 [project.entry-points.pytest11]
 save_warnings = "pytest_save_warnings.plugin"
 
+[tool.hatch.build.hooks.vcs]
+version-file = "src/pytest_save_warnings/_version.py"
+
 [tool.hatch.build.targets.wheel]
 only-include = ["src"]
 sources = ["src"]
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.pytest.ini_options]
 pytester_example_dir = "tests/examples/"
